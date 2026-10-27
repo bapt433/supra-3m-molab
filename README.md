@@ -28,8 +28,8 @@ optimiser dynamics are unchanged. The warmup keeps the 12B run's 4.369% share of
 ## Run it
 
 In molab, create a notebook from this repository and open `notebook.py`, then run all cells.
-First run downloads about 240 MB of tokenised data; training itself is roughly one minute of GPU
-time on the RTX Pro 6000.
+First run downloads about 110 MB of tokenised data (compressed); training itself is roughly one
+minute of GPU time on the RTX Pro 6000.
 
 Locally:
 
