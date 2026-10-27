@@ -1,0 +1,5 @@
+runs/
+data/
+supra3m_work/
+__pycache__/
+*.pyc
