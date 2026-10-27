@@ -72,3 +72,13 @@ Mixture phases as fractions of the run:
 It is a pipeline and throughput test, not a quality result. 100M tokens is 33 tokens per
 parameter, so the loss will be far above the 12B run's. Compare throughput and the loss curve
 shape, not the absolute loss.
+
+## Verified
+
+- The public repo tarball and the `data-v1` asset both download without auth.
+  Asset sha256: `5f4d79eee51eed9c2b686acf29b2960653c164c35d3ce900ebe1dc6c681b582a`.
+- `notebook.py` runs end to end through `marimo export html` (download, extract, train, plot).
+- `train.py` reproduces the original trainer's loss trajectory exactly: 8.2104 -> 6.1936 over
+  the same 16 steps at batch 4 x 64, and resumes from a checkpoint without a step jump.
+- Not yet measured on molab hardware: the tokens/s figure there is unknown until the first run.
+
