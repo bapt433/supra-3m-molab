@@ -1,0 +1,42 @@
+{
+  "name": "supra2.5-pico-3m-100m-molab-test",
+  "model": {
+    "vocab_size": 4104,
+    "hidden_size": 144,
+    "num_hidden_layers": 10,
+    "intermediate_size": 376,
+    "num_attention_heads": 3,
+    "num_key_value_heads": 1,
+    "head_dim": 48,
+    "rotary_dim": 24,
+    "max_position_embeddings": 1024,
+    "attnres": true,
+    "xsa": true,
+    "tie_word_embeddings": true,
+    "params": 2982480
+  },
+  "training": {
+    "tokens": 100000000,
+    "batch_sequences": 256,
+    "seq": 1024,
+    "grad_accum": 1,
+    "tokens_per_step": 262144,
+    "total_steps": 381,
+    "warmup_steps": 17,
+    "stable_frac": 0.8,
+    "cooldown_start": 0.8,
+    "lr_muon": 0.02,
+    "lr_adam": 0.006,
+    "betas": [0.9, 0.95],
+    "weight_decay": 0.0,
+    "grad_clip": 1.0,
+    "dtype": "bf16",
+    "compile": true,
+    "seed": 0
+  },
+  "provenance": {
+    "source_run": "slm3m runs/big, 12B tokens, index 12.96",
+    "source_launch": "train_ddp.py --tokens 12e9 --bs 64 --seq 1024 --grad-accum 4 --lr-muon 0.02 --lr-adam 6e-3 --warmup 2000 --stable 0.80 --cooldown-start 0.80 --dtype bf16 --compile",
+    "data": "tokenised shards from the same six sources, sliced to 120M tokens"
+  }
+}
