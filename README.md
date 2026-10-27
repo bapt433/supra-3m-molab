@@ -1,5 +1,7 @@
 # supra-3m-molab
 
+[![Open in molab](https://marimo.io/molab-shield.svg)](https://molab.marimo.io/github/bapt433/supra-3m-molab/blob/main/notebook.py)
+
 A self-contained reproduction of the winning **Supra2.5-Pico 3M** training recipe, scaled to
 **100M tokens** so it runs end to end in a few minutes on molab's free RTX Pro 6000 (96 GB).
 
