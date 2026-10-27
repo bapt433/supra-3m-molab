@@ -215,6 +215,13 @@ def main():
         amp = None
     rng = np.random.default_rng(a.seed * 100003 + 7)
     net.train()
+
+    def fwd(x, y):
+        if amp is not None:
+            with torch.autocast("cuda", dtype=amp):
+                return net(x, y)[1]
+        return net(x, y)[1]
+
     t_start = time.time()
     t_last = t_start
     losses = []
@@ -233,11 +240,15 @@ def main():
             b = shards.batch(rng, w, a.bs, a.seq)
             x = torch.from_numpy(b[:, :-1]).to(device)
             y = torch.from_numpy(b[:, 1:]).to(device)
-            if amp is not None:
-                with torch.autocast("cuda", dtype=amp):
-                    _, loss = net(x, y)
-            else:
-                _, loss = net(x, y)
+            try:
+                loss = fwd(x, y)
+            except Exception as e:
+                if hasattr(net, "_orig_mod"):
+                    print(f"compiled forward failed ({type(e).__name__}: {e}); falling back to eager", flush=True)
+                    net = net._orig_mod
+                    loss = fwd(x, y)
+                else:
+                    raise
             (loss / a.grad_accum).backward()
 
         torch.nn.utils.clip_grad_norm_(net.parameters(), 1.0)
