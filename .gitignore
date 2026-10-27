@@ -1,5 +1,6 @@
 runs/
 data/
 supra3m_work/
+__marimo__/
 __pycache__/
 *.pyc
