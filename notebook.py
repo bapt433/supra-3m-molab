@@ -45,9 +45,15 @@ def _(mo):
     ASSET = "slm3m_100m.tar.gz"
 
     WORK = pathlib.Path.cwd() / "supra3m_work"
+    try:
+        WORK.mkdir(parents=True, exist_ok=True)
+        (WORK / ".writable").write_text("ok")
+    except OSError:
+        WORK = pathlib.Path("/tmp") / "supra3m_work"
+        WORK.mkdir(parents=True, exist_ok=True)
+
     SRC = WORK / "src"
     DATA = WORK / "data"
-    WORK.mkdir(parents=True, exist_ok=True)
 
     def fetch(url, dst):
         if dst.exists() and dst.stat().st_size > 0:
